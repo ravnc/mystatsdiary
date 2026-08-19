@@ -208,7 +208,10 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#the-assumption" id="toc-the-assumption" class="nav-link" data-scroll-target="#the-assumption">The Assumption</a></li>
   <li><a href="#the-claim" id="toc-the-claim" class="nav-link" data-scroll-target="#the-claim">The Claim</a></li>
-  <li><a href="#what-are-we-expecting-to-find" id="toc-what-are-we-expecting-to-find" class="nav-link" data-scroll-target="#what-are-we-expecting-to-find">What are we expecting to find?</a></li>
+  </ul></li>
+  <li><a href="#what-are-we-expecting-to-find" id="toc-what-are-we-expecting-to-find" class="nav-link" data-scroll-target="#what-are-we-expecting-to-find">What are we expecting to find?</a>
+  <ul class="collapse">
+  <li><a href="#how-did-dr-john-arrive-at-his-expected-value" id="toc-how-did-dr-john-arrive-at-his-expected-value" class="nav-link" data-scroll-target="#how-did-dr-john-arrive-at-his-expected-value">How did Dr John arrive at his expected value?</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -262,7 +265,7 @@ window.Quarto = {
 <p>For any data distribution, if we were to take a sufficiently small range (“to zoom in” on the data), then the data would appear sufficiently “flat” and approach a uniform distribution.</p>
 <blockquote class="blockquote">
 <p><strong>What is a uniform distribution?</strong></p>
-<p>Each outcome in a uniform distribution (what you’d see on the horizontal axis) has an equal chance of occurring. For example, each number on a fair 6-sided die has a 1/6 chance of being rolled.</p>
+<p>Each outcome in a uniform distribution (what you’d see on the horizontal axis) has an equal chance of occurring. For example, each number on a fair 6-sided die has a 1/6 chance of being rolled. If we plotted the outcome of the roll (the number) on the x-axis, and the probability of each roll on the y-axis, the resulting graph (a probability mass function) will be a uniform distribution.</p>
 </blockquote>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of a uniform distribution </span></span>
@@ -284,7 +287,7 @@ window.Quarto = {
 <p>Dr John argued that if we looked at the data from a <em>specific</em> <em>company</em> (company 11), and from that subset, a specific range (from 7 to 8 tonnes), the data would follow a uniform distribution.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"weighbridge_2-2hss1p1.xlsx"</span>) </span>
@@ -303,7 +306,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>There are 253 weights from Company 11 in that range. Two weights <span class="math inline">\((7.21, 7.93)\)</span> were removed from the dataset as they do not round to 20kg, and this doesn’t fit with Dr John’s assumption of a uniform distribution.</p>
+<p>Dr John looked at the weights from 7 to 8 tonnes in steps of 20kg (e.g.&nbsp;7.02, 7.04, 7.06). Two weights <span class="math inline">\((7.21, 7.93)\)</span> were removed from the dataset as they do not round to 20kg, which leaves us with 251 individual datapoints.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_subset[<span class="fu">round</span>(df_subset<span class="sc">$</span><span class="st">`</span><span class="at">Net weight of garbage (tonnes)</span><span class="st">`</span> <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">!=</span> <span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -321,16 +324,83 @@ window.Quarto = {
 <pre><code>[1] 251</code></pre>
 </div>
 </div>
+<p>Dr John noted that from this subset that he has singled out, there are 12 counts of 5. That is, of the times that Company 11 dumped weights at this weighbridge (in which the net garbage weight fell between 7 and 8 tonnes), twelve individual weights were recorded 5 different times.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_subset <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="st">`</span><span class="at">Net weight of garbage (tonnes)</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+<p>Dr John said this was unusually high, as for a uniform distribution we would expect 8.86.</p>
+<p><em>How did he get this number, and is his conclusion of 12 counts of 5 being unusual, accurate?</em></p>
 </section>
-<section id="what-are-we-expecting-to-find" class="level3">
-<h3 class="anchored" data-anchor-id="what-are-we-expecting-to-find">What are we expecting to find?</h3>
-<p>Since we are expecting the data to follow a uniform distribution, the</p>
+</section>
+<section id="what-are-we-expecting-to-find" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-we-expecting-to-find">What are we expecting to find?</h2>
+<p>Putting aside the validity and the approach of Dr John’s argument, let us first examine his methods.</p>
+<p>Since we are expecting the data to follow a uniform distribution, we can perform a goodness-of-fit test to compare our <strong>expected values</strong> (a uniform distribution of 251 counts among 50 values between 7 and 7.98), to our <strong>observed values</strong>. The standard test to use in this case is the <strong>chi-squared goodness-of-fit test</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected counts: 251*1/50=5.02 each</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>test_table <span class="ot">&lt;-</span> df_subset <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Net weight of garbage (tonnes)</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">observed =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Net weight of garbage (tonnes)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">seq</span>(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="dv">700</span>, <span class="dv">798</span>, <span class="at">by =</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">100</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">list</span>(<span class="at">observed =</span> <span class="dv">0</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">expected =</span> <span class="dv">251</span><span class="sc">/</span><span class="dv">50</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>test_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 3
+   `Net weight of garbage (tonnes)` observed expected
+                              &lt;dbl&gt;    &lt;int&gt;    &lt;dbl&gt;
+ 1                             7           5     5.02
+ 2                             7.02        7     5.02
+ 3                             7.04        4     5.02
+ 4                             7.06        3     5.02
+ 5                             7.08        3     5.02
+ 6                             7.1         6     5.02
+ 7                             7.12        2     5.02
+ 8                             7.14        3     5.02
+ 9                             7.16        3     5.02
+10                             7.18        8     5.02
+# ℹ 40 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> test_table<span class="sc">$</span>observed, <span class="at">p =</span> test_table<span class="sc">$</span>expected<span class="sc">/</span><span class="dv">251</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  test_table$observed
+X-squared = 44.418, df = 49, p-value = 0.6591</code></pre>
+</div>
+</div>
+<p>What does this tell us? Well, we know that the p-value of <span class="math inline">\(0.66\)</span> is the probability of observing a value at least as extreme as what we observed, if our assumption of the data following a uniform distribution was true. This is quite a high probability, which reflects perhaps that our data is not very extreme at all.</p>
+<blockquote class="blockquote">
+<p>We may also recall that the mean of the chi-squared distribution is equal to its degrees of freedom. In this case, we have 49 degrees of freedom, and it’s intuitive to reason that an observed value of 44.42 is not that extreme when compared to the mean of 49 after all.</p>
+</blockquote>
+<p>This calls into question Dr John’s claim that our observed data is “unusual” when comparing to what’s expected from a uniform distribution.</p>
+<section id="how-did-dr-john-arrive-at-his-expected-value" class="level3">
+<h3 class="anchored" data-anchor-id="how-did-dr-john-arrive-at-his-expected-value">How did Dr John arrive at his expected value?</h3>
+<p>Earlier, Dr John said that the number of counts of 5 we should expect to have seen, assuming the data followed a uniform distribution, was 8.89. Considering he did not back up his reasoning, where could he have possibly gotten this value from?</p>
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The exclusion of those two values can be argued. However, ultimately it is the removal of 2 out of 253 datapoints, and so we can infer that the impact of removing them wouldn’t be too large.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
