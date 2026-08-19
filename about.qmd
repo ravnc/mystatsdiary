@@ -2,18 +2,17 @@
 title: "About"
 image: profile.jpg
 about:
-  template: jolla
-  links:
-    - icon: bluesky
-      text: Bluesky
-      href: https://bsky.app/
-    - icon: linkedin
-      text: LinkedIn
-      href: https://linkedin.com
-    - icon: github
-      text: Github
-      href: https://github.com
-
+  template: solana
 ---
 
-About this blog
+Aspiring biostatistician. Currently completing a masters.
+
+I like to learn[^1] and one of the best ways to learn, is to teach.
+
+[^1]: Citation needed :P
+
+Another great way is through applying theoretical skills to practical problems.
+
+Thus, I will be working through real problems with real datasets in order to share pieces of what I learn.
+
+This blog may not always be accurate, but they will always be human-written, and intentionally made. I hope that we can learn a bit more about the world together.

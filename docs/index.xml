@@ -5,54 +5,229 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>MyStatsBlog</title>
-<link>https://your-website-url.example.com/</link>
-<atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
-<description>A blog built with Quarto</description>
-<generator>quarto-1.10.18</generator>
+<title>MyStatsDiary</title>
+<link>https://ravnc.github.io/mystatsdiary/</link>
+<atom:link href="https://ravnc.github.io/mystatsdiary/index.xml" rel="self" type="application/rss+xml"/>
+<description>A blog about learning statistics</description>
+<generator>quarto-1.5.57</generator>
 <lastBuildDate>Tue, 18 Aug 2026 14:00:00 GMT</lastBuildDate>
 <item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://your-website-url.example.com/posts/post-with-code/</link>
+  <title>‘The Weighbridge is Faulty!’ Well, is it?</title>
+  <link>https://ravnc.github.io/mystatsdiary/posts/sorting-out-the-rubbish/</link>
   <description><![CDATA[ 
 
 
 
 
+<p><em><strong>Disclaimer:</strong> This case study and corresponding dataset has been taken from the publicly available <a href="https://scc.ms.unimelb.edu.au/resources/teaching-and-learning/realstat">RealStat</a> directory published by the Statistical Consulting Centre at the University of Melbourne. I do not claim to own any of the following material.</em></p>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p><strong>The Statistical Consulting Centre at the University of Melbourne were commissioned by the Council to determine whether or not a garbage collection company was telling the truth about the faultiness of their weighbridge.</strong> Since garbage companies are paid a fee depending on the weight of garbage at the dump, this was a matter of importance.</p>
+<p>The garbage collection company alleged that based on testimony from an expert Dr John, their weighbridge was faulty.</p>
+</section>
+<section id="dr-johns-testimony" class="level2">
+<h2 class="anchored" data-anchor-id="dr-johns-testimony">Dr John’s Testimony</h2>
+<section id="the-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="the-assumption">The Assumption</h3>
+<p>For any data distribution, if we were to take a sufficiently small range (“to zoom in” on the data), then the data would appear sufficiently “flat” and approach a uniform distribution.</p>
+<blockquote class="blockquote">
+<p><strong>What is a uniform distribution?</strong></p>
+<p>Each outcome in a uniform distribution (what you’d see on the horizontal axis) has an equal chance of occurring. For example, each number on a fair 6-sided die has a 1/6 chance of being rolled.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Example of a uniform distribution </span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>),<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rep</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>),<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">type=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"l"</span>,</span>
+<span id="cb1-3">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">main=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Probability distribution of rolls from a fair 6-sided die"</span>,</span>
+<span id="cb1-4">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xlab=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Number on die face"</span>,</span>
+<span id="cb1-5">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ylab=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Probability"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://ravnc.github.io/mystatsdiary/posts/sorting-out-the-rubbish/index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-claim" class="level3">
+<h3 class="anchored" data-anchor-id="the-claim">The Claim</h3>
+<p>Dr John argued that if we looked at the data from a <em>specific</em> <em>company</em> (company 11), and from that subset, a specific range (from 7 to 8 tonnes), the data would follow a uniform distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(readxl) </span>
+<span id="cb2-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(dplyr) </span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">df <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">read_excel</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"weighbridge_2-2hss1p1.xlsx"</span>) </span>
+<span id="cb3-2">df_subset <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> df <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%&gt;%</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filter</span>(Company <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">11</span>,</span>
+<span id="cb3-3">                           <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">between</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Net weight of garbage (tonnes)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7.98</span>),</span>
+<span id="cb3-4">                           <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">is.na</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Net weight of garbage (tonnes)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span>))</span>
+<span id="cb3-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">hist</span>(df_subset<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Net weight of garbage (tonnes)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">breaks=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>,</span>
+<span id="cb3-6">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">main=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Histogram of a subset of weights dumped by Company 11"</span>,</span>
+<span id="cb3-7">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xlab=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Net weight of garbage (tonnes)"</span>,</span>
+<span id="cb3-8">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ylab=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Frequency"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://ravnc.github.io/mystatsdiary/posts/sorting-out-the-rubbish/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There are 253 weights from Company 11 in that range. Two weights <img src="https://latex.codecogs.com/png.latex?(7.21,%207.93)"> were removed from the dataset as they do not round to 20kg, and this doesn’t fit with Dr John’s assumption of a uniform distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">df_subset[<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">round</span>(df_subset<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Net weight of garbage (tonnes)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%%</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, ]</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  Company `Net weight of garbage (tonnes)`
+    &lt;dbl&gt;                            &lt;dbl&gt;
+1      11                             7.21
+2      11                             7.93</code></pre>
+</div>
+</div>
+</section>
+<section id="what-are-we-expecting-to-find" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-we-expecting-to-find">What are we expecting to find?</h3>
+<p>Since we are expecting the data to follow a uniform distribution, the</p>
 
-<p>This is a post with executable code.</p>
 
-
+</section>
+</section>
 
  ]]></description>
-  <category>news</category>
-  <category>code</category>
-  <category>analysis</category>
-  <guid>https://your-website-url.example.com/posts/post-with-code/</guid>
+  <guid>https://ravnc.github.io/mystatsdiary/posts/sorting-out-the-rubbish/</guid>
   <pubDate>Tue, 18 Aug 2026 14:00:00 GMT</pubDate>
-  <media:content url="https://your-website-url.example.com/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Tristan O&#39;Malley</dc:creator>
-  <link>https://your-website-url.example.com/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="https://your-website-url.example.com/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <guid>https://your-website-url.example.com/posts/welcome/</guid>
-  <pubDate>Sat, 15 Aug 2026 14:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

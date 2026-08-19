@@ -1,0 +1,60 @@
+---
+title: "'The Weighbridge is Faulty!' Well, is it?"
+date: "2026-08-19"
+---
+
+***Disclaimer:** This case study and corresponding dataset has been taken from the publicly available [RealStat](https://scc.ms.unimelb.edu.au/resources/teaching-and-learning/realstat) directory published by the Statistical Consulting Centre at the University of Melbourne. I do not claim to own any of the following material.*
+
+## Background
+
+**The Statistical Consulting Centre at the University of Melbourne were commissioned by the Council to determine whether or not a garbage collection company was telling the truth about the faultiness of their weighbridge.** Since garbage companies are paid a fee depending on the weight of garbage at the dump, this was a matter of importance.
+
+The garbage collection company alleged that based on testimony from an expert Dr John, their weighbridge was faulty.
+
+## Dr John's Testimony
+
+### The Assumption
+
+For any data distribution, if we were to take a sufficiently small range ("to zoom in" on the data), then the data would appear sufficiently "flat" and approach a uniform distribution.
+
+> **What is a uniform distribution?**
+>
+> Each outcome in a uniform distribution (what you'd see on the horizontal axis) has an equal chance of occurring. For example, each number on a fair 6-sided die has a 1/6 chance of being rolled.
+
+```{r}
+# Example of a uniform distribution 
+plot(x=c(1:6),y=rep(1/6,6),type="l",
+     main="Probability distribution of rolls from a fair 6-sided die",
+     xlab= "Number on die face",
+     ylab= "Probability")
+```
+
+### The Claim
+
+Dr John argued that if we looked at the data from a *specific* *company* (company 11), and from that subset, a specific range (from 7 to 8 tonnes), the data would follow a uniform distribution.
+
+```{r output=FALSE}
+library(readxl) 
+library(dplyr) 
+```
+
+```{r}
+df <- read_excel("weighbridge_2-2hss1p1.xlsx") 
+df_subset <- df %>% filter(Company == 11,
+                           between(`Net weight of garbage (tonnes)`, 7, 7.98),
+                           !is.na(`Net weight of garbage (tonnes)`))
+hist(df_subset$`Net weight of garbage (tonnes)`, breaks=50,
+     main="Histogram of a subset of weights dumped by Company 11",
+     xlab= "Net weight of garbage (tonnes)",
+     ylab= "Frequency")
+```
+
+There are 253 weights from Company 11 in that range. Two weights $(7.21, 7.93)$ were removed from the dataset as they do not round to 20kg, and this doesn't fit with Dr John's assumption of a uniform distribution.
+
+```{r}
+df_subset[round(df_subset$`Net weight of garbage (tonnes)` * 100) %% 2 != 0, ]
+```
+
+### What are we expecting to find?
+
+Since we are expecting the data to follow a uniform distribution, the

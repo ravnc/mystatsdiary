@@ -3,22 +3,17 @@ project:
   output-dir: docs
 
 website:
-  description: "A blog built with Quarto"
-  site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
-  title: "MyStatsBlog"
-  navbar:
-    right:
-      - about.qmd
-      - icon: github
-        href: https://github.com/
-      - icon: bluesky
-        href: https://bsky.app/
+  description: "A blog about learning statistics"
+  site-url: https://ravnc.github.io/mystatsdiary/
+  title: "MyStatsDiary"
+  sidebar: 
+    contents: auto
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      cosmo
     css: styles.css
+    toc: true
 
 
 

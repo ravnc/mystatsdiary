@@ -9,16 +9,19 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "MyStatsBlog",
+    "title": "MyStatsDiary",
     "section": "",
-    "text": "Post With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nAug 19, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nAug 16, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "‘The Weighbridge is Faulty!’ Well, is it?\n\n\n\n\n\n\n\n\n\n\n\nAug 19, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this blog"
+    "text": "Aspiring biostatistician. Currently completing a masters.\nI like to learn1 and one of the best ways to learn, is to teach.\nAnother great way is through applying theoretical skills to practical problems.\nThus, I will be working through real problems with real datasets in order to share pieces of what I learn.\nThis blog may not always be accurate, but they will always be human-written, and intentionally made. I hope that we can learn a bit more about the world together.",
+    "crumbs": [
+      "About"
+    ]
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -26,5 +29,59 @@
     "title": "Post With Code",
     "section": "",
     "text": "This is a post with executable code."
+  },
+  {
+    "objectID": "posts/sorting-out-the-rubbish/index.html",
+    "href": "posts/sorting-out-the-rubbish/index.html",
+    "title": "‘The Weighbridge is Faulty!’ Well, is it?",
+    "section": "",
+    "text": "Disclaimer: This case study and corresponding dataset has been taken from the publicly available RealStat directory published by the Statistical Consulting Centre at the University of Melbourne. I do not claim to own any of the following material.",
+    "crumbs": [
+      "Posts",
+      "'The Weighbridge is Faulty!' Well, is it?"
+    ]
+  },
+  {
+    "objectID": "posts/sorting-out-the-rubbish/index.html#background",
+    "href": "posts/sorting-out-the-rubbish/index.html#background",
+    "title": "‘The Weighbridge is Faulty!’ Well, is it?",
+    "section": "Background",
+    "text": "Background\nThe Statistical Consulting Centre at the University of Melbourne were commissioned by the Council to determine whether or not a garbage collection company was telling the truth about the faultiness of their weighbridge. Since garbage companies are paid a fee depending on the weight of garbage at the dump, this was a matter of importance.\nThe garbage collection company alleged that based on testimony from an expert Dr John, their weighbridge was faulty.",
+    "crumbs": [
+      "Posts",
+      "'The Weighbridge is Faulty!' Well, is it?"
+    ]
+  },
+  {
+    "objectID": "posts/sorting-out-the-rubbish/index.html#dr-johns-testimony",
+    "href": "posts/sorting-out-the-rubbish/index.html#dr-johns-testimony",
+    "title": "‘The Weighbridge is Faulty!’ Well, is it?",
+    "section": "Dr John’s Testimony",
+    "text": "Dr John’s Testimony\n\nThe Assumption\nFor any data distribution, if we were to take a sufficiently small range (“to zoom in” on the data), then the data would appear sufficiently “flat” and approach a uniform distribution.\n\nWhat is a uniform distribution?\nEach outcome in a uniform distribution (what you’d see on the horizontal axis) has an equal chance of occurring. For example, each number on a fair 6-sided die has a 1/6 chance of being rolled.\n\n\n# Example of a uniform distribution \nplot(x=c(1:6),y=rep(1/6,6),type=\"l\",\n     main=\"Probability distribution of rolls from a fair 6-sided die\",\n     xlab= \"Number on die face\",\n     ylab= \"Probability\")\n\n\n\n\n\n\n\n\n\n\nThe Claim\nDr John argued that if we looked at the data from a specific company (company 11), and from that subset, a specific range (from 7 to 8 tonnes), the data would follow a uniform distribution.\n\nlibrary(readxl) \nlibrary(dplyr) \n\n\ndf &lt;- read_excel(\"weighbridge_2-2hss1p1.xlsx\") \ndf_subset &lt;- df %&gt;% filter(Company == 11,\n                           between(`Net weight of garbage (tonnes)`, 7, 7.98),\n                           !is.na(`Net weight of garbage (tonnes)`))\nhist(df_subset$`Net weight of garbage (tonnes)`, breaks=50,\n     main=\"Histogram of a subset of weights dumped by Company 11\",\n     xlab= \"Net weight of garbage (tonnes)\",\n     ylab= \"Frequency\")\n\n\n\n\n\n\n\n\nThere are 253 weights from Company 11 in that range. Two weights \\((7.21, 7.93)\\) were removed from the dataset as they do not round to 20kg, and this doesn’t fit with Dr John’s assumption of a uniform distribution.\n\ndf_subset[round(df_subset$`Net weight of garbage (tonnes)` * 100) %% 2 != 0, ]\n\n# A tibble: 2 × 2\n  Company `Net weight of garbage (tonnes)`\n    &lt;dbl&gt;                            &lt;dbl&gt;\n1      11                             7.21\n2      11                             7.93\n\n\n\n\nWhat are we expecting to find?\nSince we are expecting the data to follow a uniform distribution, the",
+    "crumbs": [
+      "Posts",
+      "'The Weighbridge is Faulty!' Well, is it?"
+    ]
+  },
+  {
+    "objectID": "posts/sorting-out-the-rubbish/index.html#investigating-the-data",
+    "href": "posts/sorting-out-the-rubbish/index.html#investigating-the-data",
+    "title": "‘The Weighbridge is Faulty!’ Well, is it?",
+    "section": "Investigating the Data",
+    "text": "Investigating the Data\nDr John argued that if we looked at the data from a specific company (company 11), and from that subset, a specific range (from 7 to 8 tonnes), the data would follow a uniform distribution.\n\nlibrary(readxl) \nlibrary(dplyr) \n\n\ndf &lt;- read_excel(\"weighbridge_2-2hss1p1.xlsx\") \ndf_subset &lt;- df %&gt;% filter(Company == 11,\n                           between(`Net weight of garbage (tonnes)`, 7, 7.98),\n                           !is.na(`Net weight of garbage (tonnes)`))\nhist(df_subset$`Net weight of garbage (tonnes)`, breaks=50,\n     main=\"Histogram of a subset of weights dumped by Company 11\",\n     xlab= \"Net weight of garbage (tonnes)\",\n     ylab= \"Frequency\")\n\n\n\n\n\n\n\n\nThere are 253 weights from Company 11 in that range. Two weights \\((7.21, 7.93)\\) were removed from the dataset as they do not round to 20kg, and this doesn’t fit with Dr John’s assumption of a uniform distribution.\n\ndf_subset[round(df_subset$`Net weight of garbage (tonnes)` * 100) %% 2 != 0, ]\n\n# A tibble: 2 × 2\n  Company `Net weight of garbage (tonnes)`\n    &lt;dbl&gt;                            &lt;dbl&gt;\n1      11                             7.21\n2      11                             7.93\n\n\n\nWhat are we expecting to find?\nSince we are expecting the data to follow a uniform distribution, the",
+    "crumbs": [
+      "Posts",
+      "'The Weighbridge is Faulty!' Well, is it?"
+    ]
+  },
+  {
+    "objectID": "about.html#footnotes",
+    "href": "about.html#footnotes",
+    "title": "About",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nCitation needed :P↩︎",
+    "crumbs": [
+      "About"
+    ]
   }
 ]
