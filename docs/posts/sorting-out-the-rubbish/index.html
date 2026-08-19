@@ -205,12 +205,12 @@ window.Quarto = {
   <ul>
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
   <li><a href="#dr-johns-testimony" id="toc-dr-johns-testimony" class="nav-link" data-scroll-target="#dr-johns-testimony">Dr John’s Testimony</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#the-assumption" id="toc-the-assumption" class="nav-link" data-scroll-target="#the-assumption">The Assumption</a></li>
   <li><a href="#the-claim" id="toc-the-claim" class="nav-link" data-scroll-target="#the-claim">The Claim</a></li>
   </ul></li>
   <li><a href="#what-are-we-expecting-to-find" id="toc-what-are-we-expecting-to-find" class="nav-link" data-scroll-target="#what-are-we-expecting-to-find">What are we expecting to find?</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#how-did-dr-john-arrive-at-his-expected-value" id="toc-how-did-dr-john-arrive-at-his-expected-value" class="nav-link" data-scroll-target="#how-did-dr-john-arrive-at-his-expected-value">How did Dr John arrive at his expected value?</a></li>
   </ul></li>
   </ul>
@@ -263,10 +263,19 @@ window.Quarto = {
 <section id="the-assumption" class="level3">
 <h3 class="anchored" data-anchor-id="the-assumption">The Assumption</h3>
 <p>For any data distribution, if we were to take a sufficiently small range (“to zoom in” on the data), then the data would appear sufficiently “flat” and approach a uniform distribution.</p>
-<blockquote class="blockquote">
-<p><strong>What is a uniform distribution?</strong></p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What is a uniform distribution?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>Each outcome in a uniform distribution (what you’d see on the horizontal axis) has an equal chance of occurring. For example, each number on a fair 6-sided die has a 1/6 chance of being rolled. If we plotted the outcome of the roll (the number) on the x-axis, and the probability of each roll on the y-axis, the resulting graph (a probability mass function) will be a uniform distribution.</p>
-</blockquote>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of a uniform distribution </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>),<span class="at">y=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="dv">6</span>),<span class="at">type=</span><span class="st">"l"</span>,</span>
@@ -281,10 +290,26 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
 <section id="the-claim" class="level3">
 <h3 class="anchored" data-anchor-id="the-claim">The Claim</h3>
 <p>Dr John argued that if we looked at the data from a <em>specific</em> <em>company</em> (company 11), and from that subset, a specific range (from 7 to 8 tonnes), the data would follow a uniform distribution.</p>
+<p>Let’s take a look at the data.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code for plotting the histogram
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -298,15 +323,32 @@ window.Quarto = {
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Histogram of a subset of weights dumped by Company 11"</span>,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span> <span class="st">"Net weight of garbage (tonnes)"</span>,</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Dr John looked at the weights from 7 to 8 tonnes in steps of 20kg (e.g.&nbsp;7.02, 7.04, 7.06). Two weights <span class="math inline">\((7.21, 7.93)\)</span> were removed from the dataset as they do not round to 20kg, which leaves us with 251 individual datapoints.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code for excluding the 2 datapoints
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_subset[<span class="fu">round</span>(df_subset<span class="sc">$</span><span class="st">`</span><span class="at">Net weight of garbage (tonnes)</span><span class="st">`</span> <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">!=</span> <span class="dv">0</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -322,6 +364,9 @@ window.Quarto = {
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 251</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <p>Dr John noted that from this subset that he has singled out, there are 12 counts of 5. That is, of the times that Company 11 dumped weights at this weighbridge (in which the net garbage weight fell between 7 and 8 tonnes), twelve individual weights were recorded 5 different times.</p>
@@ -342,6 +387,18 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="what-are-we-expecting-to-find">What are we expecting to find?</h2>
 <p>Putting aside the validity and the approach of Dr John’s argument, let us first examine his methods.</p>
 <p>Since we are expecting the data to follow a uniform distribution, we can perform a goodness-of-fit test to compare our <strong>expected values</strong> (a uniform distribution of 251 counts among 50 values between 7 and 7.98), to our <strong>observed values</strong>. The standard test to use in this case is the <strong>chi-squared goodness-of-fit test</strong>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Preparing the test table
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected counts: 251*1/50=5.02 each</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>test_table <span class="ot">&lt;-</span> df_subset <span class="sc">%&gt;%</span> </span>
@@ -369,6 +426,9 @@ window.Quarto = {
  9                             7.16        3     5.02
 10                             7.18        8     5.02
 # ℹ 40 more rows</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="cell">

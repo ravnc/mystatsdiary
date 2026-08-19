@@ -20,9 +20,10 @@ The garbage collection company alleged that based on testimony from an expert Dr
 
 For any data distribution, if we were to take a sufficiently small range ("to zoom in" on the data), then the data would appear sufficiently "flat" and approach a uniform distribution.
 
-> **What is a uniform distribution?**
->
-> Each outcome in a uniform distribution (what you'd see on the horizontal axis) has an equal chance of occurring. For example, each number on a fair 6-sided die has a 1/6 chance of being rolled. If we plotted the outcome of the roll (the number) on the x-axis, and the probability of each roll on the y-axis, the resulting graph (a probability mass function) will be a uniform distribution.
+::: {.callout-tip collapse="true" appearance="simple"}
+#### What is a uniform distribution?
+
+Each outcome in a uniform distribution (what you'd see on the horizontal axis) has an equal chance of occurring. For example, each number on a fair 6-sided die has a 1/6 chance of being rolled. If we plotted the outcome of the roll (the number) on the x-axis, and the probability of each roll on the y-axis, the resulting graph (a probability mass function) will be a uniform distribution.
 
 ```{r}
 # Example of a uniform distribution 
@@ -31,17 +32,36 @@ plot(x=c(1:6),y=rep(1/6,6),type="l",
      xlab= "Number on die face",
      ylab= "Probability")
 ```
+:::
 
 ### The Claim
 
 Dr John argued that if we looked at the data from a *specific* *company* (company 11), and from that subset, a specific range (from 7 to 8 tonnes), the data would follow a uniform distribution.
+
+Let's take a look at the data. 
+
+::: {.callout-note collapse="true" appearance="simple"} 
+#### Code for plotting the histogram
 
 ```{r output=FALSE}
 library(readxl) 
 library(tidyverse) 
 ```
 
-```{r}
+```{r output=FALSE}
+df <- read_excel("weighbridge_2-2hss1p1.xlsx") 
+df_subset <- df %>% filter(Company == 11,
+                           between(`Net weight of garbage (tonnes)`, 7, 7.98),
+                           !is.na(`Net weight of garbage (tonnes)`))
+hist(df_subset$`Net weight of garbage (tonnes)`, breaks=50,
+     main="Histogram of a subset of weights dumped by Company 11",
+     xlab= "Net weight of garbage (tonnes)",
+     ylab= "Frequency")
+```
+
+::: 
+
+```{r echo=FALSE}
 df <- read_excel("weighbridge_2-2hss1p1.xlsx") 
 df_subset <- df %>% filter(Company == 11,
                            between(`Net weight of garbage (tonnes)`, 7, 7.98),
@@ -56,6 +76,9 @@ Dr John looked at the weights from 7 to 8 tonnes in steps of 20kg (e.g. 7.02, 7.
 
 [^1]: The exclusion of those two values can be argued. However, ultimately it is the removal of 2 out of 253 datapoints, and so we can infer that the impact of removing them wouldn't be too large.
 
+::: {.callout-note collapse="true" appearance="simple"}
+#### Code for excluding the 2 datapoints
+
 ```{r}
 df_subset[round(df_subset$`Net weight of garbage (tonnes)` * 100) %% 2 != 0, ]
 ```
@@ -64,6 +87,7 @@ df_subset[round(df_subset$`Net weight of garbage (tonnes)` * 100) %% 2 != 0, ]
 df_subset <- df_subset %>% filter(`Net weight of garbage (tonnes)` != 7.21 & `Net weight of garbage (tonnes)` != 7.93)
 nrow(df_subset)
 ```
+:::
 
 Dr John noted that from this subset that he has singled out, there are 12 counts of 5. That is, of the times that Company 11 dumped weights at this weighbridge (in which the net garbage weight fell between 7 and 8 tonnes), twelve individual weights were recorded 5 different times.
 
@@ -84,6 +108,9 @@ Putting aside the validity and the approach of Dr John's argument, let us first 
 
 Since we are expecting the data to follow a uniform distribution, we can perform a goodness-of-fit test to compare our **expected values** (a uniform distribution of 251 counts among 50 values between 7 and 7.98), to our **observed values**. The standard test to use in this case is the **chi-squared goodness-of-fit test**.
 
+::: {.callout-note collapse="true" appearance="simple"}
+#### Preparing the test table
+
 ```{r}
 # Expected counts: 251*1/50=5.02 each
 test_table <- df_subset %>% 
@@ -97,6 +124,7 @@ test_table <- df_subset %>%
   mutate(expected = 251/50)
 test_table
 ```
+:::
 
 ```{r}
 chisq.test(x = test_table$observed, p = test_table$expected/251)
