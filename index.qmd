@@ -1,13 +1,14 @@
 ---
-title: "MyStatsDiary"
+title: "A blog about learning statistics"
 listing:
   contents: posts
   feed: true
   sort: "date desc"
   type: default
-  categories: true
+  categories: false
   sort-ui: false
   filter-ui: false
+  date-format: "long"
 page-layout: full
-title-block-banner: true
+title-block-banner: false
 ---

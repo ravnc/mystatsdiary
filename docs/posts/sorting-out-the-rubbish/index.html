@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-08-19">
+<meta name="description" content="The Statistical Consulting Centre at the University of Melbourne were commissioned by the Council to determine whether or not a garbage collection company was telling the truth about the faultiness of their weighbridge. The garbage collection company alleged that based on testimony from an expert Dr John, their weighbridge was faulty.">
 
-<title>‘The Weighbridge is Faulty!’ Well, is it? – MyStatsDiary</title>
+<title>‘The Weighbridge is Faulty!’ Well, is it? – My Stats Diary</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -159,7 +160,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../../">MyStatsDiary</a> 
+      <a href="../../">My Stats Diary</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -218,8 +219,16 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/sorting-out-the-rubbish/index.html">Posts</a></li><li class="breadcrumb-item"><a href="../../posts/sorting-out-the-rubbish/index.html">‘The Weighbridge is Faulty!’ Well, is it?</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">‘The Weighbridge is Faulty!’ Well, is it?</h1>
-</div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Statistics</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    The Statistical Consulting Centre at the University of Melbourne were commissioned by the Council to determine whether or not a garbage collection company was telling the truth about the faultiness of their weighbridge. The garbage collection company alleged that based on testimony from an expert Dr John, their weighbridge was faulty.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -303,6 +312,13 @@ window.Quarto = {
     &lt;dbl&gt;                            &lt;dbl&gt;
 1      11                             7.21
 2      11                             7.93</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_subset <span class="ot">&lt;-</span> df_subset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="st">`</span><span class="at">Net weight of garbage (tonnes)</span><span class="st">`</span> <span class="sc">!=</span> <span class="fl">7.21</span> <span class="sc">&amp;</span> <span class="st">`</span><span class="at">Net weight of garbage (tonnes)</span><span class="st">`</span> <span class="sc">!=</span> <span class="fl">7.93</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 251</code></pre>
 </div>
 </div>
 </section>

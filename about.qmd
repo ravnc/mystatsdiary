@@ -3,6 +3,8 @@ title: "About"
 image: profile.jpg
 about:
   template: solana
+page-layout: full
+title-block-banner: false
 ---
 
 Aspiring biostatistician. Currently completing a masters.

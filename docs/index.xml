@@ -5,7 +5,7 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>MyStatsDiary</title>
+<title>My Stats Diary</title>
 <link>https://ravnc.github.io/mystatsdiary/</link>
 <atom:link href="https://ravnc.github.io/mystatsdiary/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog about learning statistics</description>
@@ -216,6 +216,43 @@ font-style: inherit;">0</span>, ]</span></code></pre></div>
 2      11                             7.93</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1">df_subset <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> df_subset <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%&gt;%</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filter</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Net weight of garbage (tonnes)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7.21</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Net weight of garbage (tonnes)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7.93</span>)</span>
+<span id="cb6-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nrow</span>(df_subset)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 251</code></pre>
+</div>
+</div>
 </section>
 <section id="what-are-we-expecting-to-find" class="level3">
 <h3 class="anchored" data-anchor-id="what-are-we-expecting-to-find">What are we expecting to find?</h3>
@@ -226,8 +263,10 @@ font-style: inherit;">0</span>, ]</span></code></pre></div>
 </section>
 
  ]]></description>
+  <category>Statistics</category>
   <guid>https://ravnc.github.io/mystatsdiary/posts/sorting-out-the-rubbish/</guid>
   <pubDate>Tue, 18 Aug 2026 14:00:00 GMT</pubDate>
+  <media:content url="https://ravnc.github.io/mystatsdiary/posts/sorting-out-the-rubbish/preview.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

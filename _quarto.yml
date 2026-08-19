@@ -5,7 +5,7 @@ project:
 website:
   description: "A blog about learning statistics"
   site-url: https://ravnc.github.io/mystatsdiary/
-  title: "MyStatsDiary"
+  title: "My Stats Diary"
   sidebar: 
     contents: auto
 format:

@@ -1,6 +1,9 @@
 ---
 title: "'The Weighbridge is Faulty!' Well, is it?"
 date: "2026-08-19"
+categories: "Statistics"
+image: "preview.jpg"
+description: "The Statistical Consulting Centre at the University of Melbourne were commissioned by the Council to determine whether or not a garbage collection company was telling the truth about the faultiness of their weighbridge. The garbage collection company alleged that based on testimony from an expert Dr John, their weighbridge was faulty."
 ---
 
 ***Disclaimer:** This case study and corresponding dataset has been taken from the publicly available [RealStat](https://scc.ms.unimelb.edu.au/resources/teaching-and-learning/realstat) directory published by the Statistical Consulting Centre at the University of Melbourne. I do not claim to own any of the following material.*
@@ -53,6 +56,11 @@ There are 253 weights from Company 11 in that range. Two weights $(7.21, 7.93)$ 
 
 ```{r}
 df_subset[round(df_subset$`Net weight of garbage (tonnes)` * 100) %% 2 != 0, ]
+```
+
+```{r}
+df_subset <- df_subset %>% filter(`Net weight of garbage (tonnes)` != 7.21 & `Net weight of garbage (tonnes)` != 7.93)
+nrow(df_subset)
 ```
 
 ### What are we expecting to find?
